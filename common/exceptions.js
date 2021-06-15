@@ -12,10 +12,17 @@ const exceptionType = {
     paises:{
         notFound: {
             code: 1000,
-            message: "Pais no se encuentra",
+            message: "Country not found",
             httpStatus: 404
         },
-        },
+    },
+    cities: {
+        notFound: {
+            code: 1000,
+            message: "City not found",
+            httpStatus: 404
+        }
+    },
     // code of users 100
     users : {
         invalidPassword: {
