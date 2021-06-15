@@ -1,0 +1,35 @@
+{
+  "name": "memorandosapi",
+  "version": "1.0.0",
+  "description": "API de la aplicacion memorandos",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxi-Olea/memorandosapi.git"
+  },
+  "author": "Maxi Olea",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maxi-Olea/memorandosapi/issues"
+  },
+  "homepage": "https://github.com/Maxi-Olea/memorandosapi#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.6",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-http-context": "^1.2.4",
+    "jsonwebtoken": "^8.5.1",
+    "method-override": "^3.0.0",
+    "mysql2": "^2.2.5",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "sequelize": "^6.6.2",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
+  }
+}
