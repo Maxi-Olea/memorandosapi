@@ -17,9 +17,9 @@ const getById = async (req,res) => {
     return res.status(200).json(user)
 }
 
-
 const createUser = async (req,res) => {
     const data = req.body
+    console.log(JSON.stringify(req.body))
     console.log("INIT CREATE USER  data:" + JSON.stringify(data))
     if(!data.userName){
         console.log("no name in  CREATE USER  data:" + JSON.stringify(data))
@@ -30,6 +30,14 @@ const createUser = async (req,res) => {
     return res.status(201).json(newUser)
 }
 
+const deleteUser = async (req,res) => {
+    const {id} = req.params
+    console.log("Delete user id: " + id)
+    const deleted = await userService.deleteUser(id)
+    console.log("response controller " + JSON.stringify(deleted))
+    return res.status(200).json(deleted)
+}
+
 const login = async (req, res) => {
     const data = req.body
     console.log("login - data:" + JSON.stringify(data))
@@ -37,10 +45,23 @@ const login = async (req, res) => {
     res.json(userInfo)
   }
   
+  const updatePassword = async (req, res) => {
+    const data = req.body
+    console.log("data received: " + JSON.stringify(data))
+    console.log("email: " + data.email)
+    console.log("Username 2: ", req.params)
+    const userName = req.body.username
+    console.log("Username 3: ", userName)
+    console.log("Reset Password: " + userName)
+    const hashedNewPass = await userService.updatePassword(userName, data)
+    res.json(hashedNewPass)
+  }
 
 module.exports = {
     createUser,
+    deleteUser,
     getAll,
     getById,
-    login
+    login,
+    updatePassword
 }

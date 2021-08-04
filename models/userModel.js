@@ -21,6 +21,11 @@ const UserModel = sequelizeConnection.define(
       allowNull: false,
       field: 'apellido'
     },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      field: 'email'
+    },
     userName: {
       type: Sequelize.STRING,
       allowNull: false,
@@ -30,6 +35,11 @@ const UserModel = sequelizeConnection.define(
       type: Sequelize.STRING,
       allowNull: false,
       field: 'password'
+    },
+    ciudad: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      field: 'CIUDAD_idciudad'
     }
   },
   {

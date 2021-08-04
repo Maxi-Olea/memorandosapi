@@ -8,14 +8,18 @@ const config = require("config")
 
 
 
-const createUser = async ({userName, password}) => {
+const createUser = async ({name, lastName, email, userName, password, idCiudad}) => {
     // logger.info(`createUser - userName[${userName}]`)
     console.log("createUser - userName["+ userName+"]");
     const data = {
-      userName:userName.toLowerCase(),
-      password:encryptPassword(password),
-      createdAt:new Date(),
-      updatedAt: new Date()
+      name: name,
+      lastName: lastName,
+      email: email,
+      userName: userName.toLowerCase(),
+      password: encryptPassword(password),
+      ciudad: idCiudad,
+      //createdAt: new Date(),
+      //updatedAt: new Date()
     }
     console.log("createUser - data["+ JSON.stringify(data)+"]");
     try {
@@ -44,6 +48,17 @@ const getAll = async (query) =>{
     return users;
 }
 
+const deleteUser = async (idUser) => {
+  console.log("deleteUser - id[" + idUser + "]");
+  try {
+    return await UserModel.destroy({where:{id:idUser}})
+  } catch (e) {
+    const errorMessage = `Delete User - Detail: ` + e.message
+    console.error("DeleteUser - ["+ idUser+"]");
+    throw new error.AppError(exceptions.exceptionType.database.entity.canNotBeDeleted, errorMessage)
+  }
+}
+
 const getById = async (userId) =>{
     console.log("get by id - userId["+ userId+"]");
     const user = await UserModel.findByPk(userId);
@@ -59,7 +74,7 @@ const login = async ({userName, password}) => {
   const user = await UserModel.findOne({where: {userName:userName.toLowerCase()}})
   const isMatch = user && (await comparePass(password,user.password))
   if(!isMatch){
-    throw new error.AppError(exceptions.exceptionType.users.invalidPassword,"userService.login")
+    throw new error.AppError(exceptions.exceptionType.users.invalidPassword)
   }
   const token = generateToken(user.id,user.userName)
   return {token}
@@ -74,10 +89,34 @@ const generateToken = (id,userName)=>{
  })
 }
 
+const updatePassword = async (userName, data) => {
+  console.log("Update password for User - " + JSON.stringify(userName))
+  const user = await UserModel.findOne({where: {userName:userName.toLowerCase()}})
+  if(data.email.toLowerCase() === user.email.toLowerCase()) {
+    console.log("email for user " + userName + " match!")
+    const newPass = encryptPassword(data.password)
+    try {
+      return await UserModel.update({password:newPass}, {where:{username: userName.toLowerCase()}})
+    } catch (e) {
+      const errorMessage = `Update User - Detail: ` + e.message
+      console.error("updateUser - ["+ userName +"]");
+      throw new error.AppError(exceptions.exceptionType.database.entity.canNotBeUpdated, errorMessage)
+    }
+  } else {
+    console.log("email doesn't match")
+  }
+  const newPassword = data.password
+  console.log("Reset Password by id: " + idUser + " New Password: " + newPassword)
+  const password = encryptPassword(newPassword)
+  console.log("HashedPassword: " + password)
+  
+}
 
 module.exports = {
     createUser,
+    deleteUser,
     getAll,
     getById,
-    login
+    login,
+    updatePassword
 }

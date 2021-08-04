@@ -8,8 +8,13 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-  console.log("get by id route cities" +req.params);
+  console.log("get by id route cities" + JSON.stringify(req.params));
   routeController.handleRequest(req, res, citiesController.getById)
+})
+
+router.get('/bycountry/:id', (req, res) => {
+  console.log("Get cities by CountryId - " + JSON.stringify(req.params))
+  routeController.handleRequest(req, res, citiesController.getByCountryId)
 })
 
 router.post('/', (req, res) => {

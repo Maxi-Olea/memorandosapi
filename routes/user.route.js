@@ -5,43 +5,43 @@ const routeController = require("../common/route.controller")
 const auth = require("../middlewares/auth")
 
 
-router.get("/",(request,response)=>{
-    console.log(request.query);
-    routeController.handleRequest(request, response, UserController.getAll)
+router.get("/", (req,res)=>{
+    console.log(req.query);
+    routeController.handleRequest(req, res, UserController.getAll)
 })
 
-router.get('/:id',[auth.required],(request,response) => {
-    console.log("get bt id route" +request.params);
-    routeController.handleRequest(request, response, UserController.getById)
+router.get('/:id',(req,res) => {
+    console.log("get bt id route" +req.params);
+    routeController.handleRequest(req, res, UserController.getById)
   });
   
-  router.delete('/:id',(request,response) => {
-    console.log(request.params);
-    const params = request.params
+  router.delete('/:id',(req,res) => {
+    console.log(req.params);
+    const params = req.params
     const userId = params.id
-    response.send("delete by id")
+    routeController.handleRequest(req, res, UserController.deleteUser)
+    res.send("delete by id" + userId)
   });
   
-  router.patch('/:id',(request,response) => {
-    console.log(request.params);
-    const params = request.params
-    const userId = params.id
-    response.send("patch by id")
+  router.patch('/:username',(req,res) => {
+    setTimeout(() => {
+        
+    
+    console.log("Username: ", req.params);
+    routeController.handleRequest(req, res, UserController.updatePassword)
+    
+  }, 5000)
   });
 
-   router.put('/:id',(request,response) => {
-    console.log(request.params);
-    const params = request.params
-    const userId = params.id
-    response.send("put by id")
-  });
+  //  router.put('/:id',(req,res) => {
+  //   console.log(req.params);
+  //   const params = req.params
+  //   const userId = params.id
+  //   res.send("put by id")
+  // });
   
-  router.post('/',(request,response) => {
-    routeController.handleRequest(request, response, UserController.createUser)
-  });
-
-  router.get('/prueba',(request,response) => {
-    response.send("prueba")
+  router.post('/',(req,res) => {
+    routeController.handleRequest(req, res, UserController.createUser)
   });
 
 module.exports = router

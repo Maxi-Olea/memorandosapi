@@ -17,6 +17,12 @@ const getById = async (req,res) => {
     return res.status(200).json(city)
 }
 
+const getByCountryId = async (req, res) => {
+    console.log(req.params)
+    const countryId = req.params.id
+    const cities = await cityService.getByCountryId(countryId)
+    return res.status(200).json(cities)
+}
 
 const createCity = async (req,res) => {
     const data = req.body
@@ -53,6 +59,7 @@ const deleteCity = async (req, res) => {
 module.exports = {
     getAll,
     getById,
+    getByCountryId,
     createCity,
     updateCity,
     deleteCity

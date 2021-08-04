@@ -28,11 +28,28 @@ const getById = async (cityId) =>{
   const city = await cityModel.findByPk(cityId, {
       attributes: [ 'ciudad']
     });
-  console.log("get city service "+city)
+  console.log("get city service "+ city)
   if(!city){
       throw new error.AppError(exceptions.exceptionType.cities.notFound)
   }
   return city;
+}
+
+const getByCountryId = async (countryId) => {
+  console.log("Get by id service - CountryId[" + countryId + "]")
+  const cities = await cityModel.findAll(
+    {
+      where: {
+        idPais: countryId
+      },
+      attributes: ['id', 'ciudad']
+    }
+  )
+  console.log("Get cities service " + cities)
+  if(!cities) {
+    throw new error.AppError(exceptions.exceptionType.cities.notFound)
+  }
+  return cities
 }
 
 const createCity = async (data) => {
@@ -75,6 +92,7 @@ const deleteCity = async (idcity) => {
 module.exports = {
   getAll,
   getById,
+  getByCountryId,
   createCity,
   updateCity,
   deleteCity
