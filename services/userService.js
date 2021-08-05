@@ -8,14 +8,14 @@ const config = require("config")
 
 
 
-const createUser = async ({name, lastName, email, userName, password, idCiudad}) => {
-    // logger.info(`createUser - userName[${userName}]`)
-    console.log("createUser - userName["+ userName+"]");
+const createUser = async ({name, lastName, email, username, password, idCiudad}) => {
+    // logger.info(`createUser - username[${username}]`)
+    console.log("createUser - username["+ username+"]");
     const data = {
       name: name,
       lastName: lastName,
       email: email,
-      userName: userName.toLowerCase(),
+      username: username.toLowerCase(),
       password: encryptPassword(password),
       ciudad: idCiudad,
       //createdAt: new Date(),
@@ -27,7 +27,7 @@ const createUser = async ({name, lastName, email, userName, password, idCiudad})
     } catch (e) {
       const errorMessage = `Create User - Detail: ` + e.message
       // logger.error(errorMessage)
-      console.error("createUser - userName["+ userName+"]");
+      console.error("createUser - username["+ username+"]");
       throw new error.AppError(exceptions.exceptionType.database.entity.canNotBeCreated, errorMessage)
     }
   }
@@ -69,37 +69,39 @@ const getById = async (userId) =>{
     return user;
 }
 
-const login = async ({userName, password}) => {
-  console.log("login - userName["+ userName+"]"+ " - password["+ password+"]" );
-  const user = await UserModel.findOne({where: {userName:userName.toLowerCase()}})
+const login = async ({username, password}) => {
+  console.log("login - username user Service: ["+ username+"]"+ " - password["+ password+"]" );
+  const user = await UserModel.findOne({where: {username:username.toLowerCase()}})
+  console.log('esta es la respuesta en user ', user)
   const isMatch = user && (await comparePass(password,user.password))
   if(!isMatch){
     throw new error.AppError(exceptions.exceptionType.users.invalidPassword)
   }
-  const token = generateToken(user.id,user.userName)
-  return {token}
+  const id = user.id
+  const token = generateToken(user.id,user.username)
+  return {id, token}
 }
 
-const generateToken = (id,userName)=>{
+const generateToken = (id,username)=>{
  return jwt.sign({
    id:id,
-   userName:userName
+   username:username
  },config.get("auth.secret"),{
    expiresIn: config.get("auth.tokenExpire")
  })
 }
 
-const updatePassword = async (userName, data) => {
-  console.log("Update password for User - " + JSON.stringify(userName))
-  const user = await UserModel.findOne({where: {userName:userName.toLowerCase()}})
+const updatePassword = async (username, data) => {
+  console.log("Update password for User - " + JSON.stringify(username))
+  const user = await UserModel.findOne({where: {username:username.toLowerCase()}})
   if(data.email.toLowerCase() === user.email.toLowerCase()) {
-    console.log("email for user " + userName + " match!")
+    console.log("email for user " + username + " match!")
     const newPass = encryptPassword(data.password)
     try {
-      return await UserModel.update({password:newPass}, {where:{username: userName.toLowerCase()}})
+      return await UserModel.update({password:newPass}, {where:{username: username.toLowerCase()}})
     } catch (e) {
       const errorMessage = `Update User - Detail: ` + e.message
-      console.error("updateUser - ["+ userName +"]");
+      console.error("updateUser - ["+ username +"]");
       throw new error.AppError(exceptions.exceptionType.database.entity.canNotBeUpdated, errorMessage)
     }
   } else {

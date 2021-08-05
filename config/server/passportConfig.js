@@ -14,7 +14,7 @@ const createStrategy = () => {
         try{
             const user = {}
             user.id = tokenPayload.id
-            user.userName = tokenPayload.userName
+            user.username = tokenPayload.username
             if(!user){
                 return next(null,false)
             }

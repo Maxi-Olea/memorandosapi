@@ -15,6 +15,15 @@ const getById = async (userId) =>{
     return results;
 }
 
+const getSentById = async (userId) => {
+    console.log("get memos sent by id: ", userId)
+    const [results] = await sequelizeConnection.
+    query("SELECT CONCAT(u.nombre, ' ', u.apellido) destinatario, m.mensaje, m.fecha_hora FROM memorando m INNER JOIN destinatario d ON d.MEMORANDO_idmemorando = m.idmemorando INNER JOIN usuario u ON u.idusuario = d.USUARIO_destinatario WHERE USUARIO_remitente = " + userId);
+    console.log("get memorandos service: ", results)
+    return results
+}
+
 module.exports = {
-    getById
+    getById,
+    getSentById
 }

@@ -21,7 +21,7 @@ const createUser = async (req,res) => {
     const data = req.body
     console.log(JSON.stringify(req.body))
     console.log("INIT CREATE USER  data:" + JSON.stringify(data))
-    if(!data.userName){
+    if(!data.username){
         console.log("no name in  CREATE USER  data:" + JSON.stringify(data))
         return res.status(400).json()
     } 
@@ -40,7 +40,7 @@ const deleteUser = async (req,res) => {
 
 const login = async (req, res) => {
     const data = req.body
-    console.log("login - data:" + JSON.stringify(data))
+    console.log("login - data en user.controller: " + JSON.stringify(data))
     const userInfo = await userService.login(data)
     res.json(userInfo)
   }
@@ -49,11 +49,11 @@ const login = async (req, res) => {
     const data = req.body
     console.log("data received: " + JSON.stringify(data))
     console.log("email: " + data.email)
-    console.log("Username 2: ", req.params)
-    const userName = req.body.username
-    console.log("Username 3: ", userName)
-    console.log("Reset Password: " + userName)
-    const hashedNewPass = await userService.updatePassword(userName, data)
+    console.log("username 2: ", req.params)
+    const username = req.body.username
+    console.log("username 3: ", username)
+    console.log("Reset Password: " + username)
+    const hashedNewPass = await userService.updatePassword(username, data)
     res.json(hashedNewPass)
   }
 

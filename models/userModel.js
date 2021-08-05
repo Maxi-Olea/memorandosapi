@@ -26,7 +26,7 @@ const UserModel = sequelizeConnection.define(
       allowNull: false,
       field: 'email'
     },
-    userName: {
+    username: {
       type: Sequelize.STRING,
       allowNull: false,
       field: 'username'

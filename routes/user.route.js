@@ -27,7 +27,7 @@ router.get('/:id',(req,res) => {
     setTimeout(() => {
         
     
-    console.log("Username: ", req.params);
+    console.log("username: ", req.params);
     routeController.handleRequest(req, res, UserController.updatePassword)
     
   }, 5000)

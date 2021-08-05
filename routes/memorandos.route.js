@@ -7,6 +7,11 @@ router.get('/:id',(req,res) => {
     console.log("get bt id route" + req.params);
     routeController.handleRequest(req, res, memorandosController.getById)
   });
+
+router.get('/sent/:id',(req,res) => {
+    console.log("get bt id route" + req.params);
+    routeController.handleRequest(req, res, memorandosController.getSentById)
+  });
   
 
   module.exports = router
