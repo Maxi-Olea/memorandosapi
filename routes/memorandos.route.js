@@ -12,6 +12,10 @@ router.get('/sent/:id',(req,res) => {
     console.log("get bt id route" + req.params);
     routeController.handleRequest(req, res, memorandosController.getSentById)
   });
+
+router.post('/', (req, res) => {
+  routeController.handleRequest(req, res, memorandosController.createMemorando)
+});
   
 
   module.exports = router

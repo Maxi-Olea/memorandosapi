@@ -4,15 +4,20 @@ const { sequelizeConnection } = require('../config/server/sequelizeConfig')
 const MemorandosModel = sequelizeConnection.define(
   'memo',
   {
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+      field: 'idmemorando'
+    },
     remitente: {
       type: Sequelize.STRING,
       allowNull: false,
-      primaryKey: true,
-      autoIncrement: false,
-      field: 'remitente'
+      field: 'USUARIO_remitente'
     },
     date: {
-      type: Sequelize.STRING,
+      type: Sequelize.DATE,
       allowNull: false,
       field: 'fecha_hora'
     },
@@ -23,7 +28,7 @@ const MemorandosModel = sequelizeConnection.define(
     },
   },
   {
-    tableName: 'memorandos',
+    tableName: 'memorando',
     timestamps: false
   }
 )

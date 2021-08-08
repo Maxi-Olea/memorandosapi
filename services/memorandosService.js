@@ -3,6 +3,8 @@ const { sequelizeConnection } = require('../config/server/sequelizeConfig')
 const error = require("../common/error")
 const exceptions = require("../common/exceptions")
 const config = require("config")
+const MemorandosModel = require('../models/memorandosModel')
+const DestinatarioModel = require('../models/destinatarioModel')
 
 const getById = async (userId) =>{
     console.log("get by id - userId["+ userId +"]");
@@ -25,7 +27,22 @@ const getSentById = async (userId) => {
     return results
 }
 
+const createMemorando = async (memorando) => {
+    console.log("Insert into memorandos: ", memorando)
+    const memo = await MemorandosModel.create(memorando)
+    console.log("response of the insert: ", memo)
+    return memo.dataValues
+}
+
+const linkToDestinatario = async (destinatario) => {
+    console.log("Insert relacion de memorando con destinatario: ", destinatario)
+    const dest = await DestinatarioModel.create(destinatario)
+    console.log("response del insert del destinarario: ", dest)
+}
+
 module.exports = {
     getById,
-    getSentById
+    getSentById,
+    createMemorando,
+    linkToDestinatario
 }

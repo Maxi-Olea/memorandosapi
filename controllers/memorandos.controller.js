@@ -17,7 +17,26 @@ const getSentById = async (req, res) => {
     return res.status(200).json(memos)
 }
 
+const createMemorando = async (req, res) => {
+    console.log("create memorando: ", req.body)
+    const memoData = {
+        message: req.body.message,
+        remitente: req.body.remitente,
+        date: Date()
+    }
+    console.log("Memo data con la fecha agregada antes de la insercion: ", memoData)
+    const newMemo = await memorandosService.createMemorando(memoData)
+    console.log("New Memo after creation: ", JSON.stringify(newMemo))
+    const destinatario = {
+        destinatario: req.body.destinatario,
+        idmemorando: newMemo.id
+    }
+    await memorandosService.linkToDestinatario(destinatario)
+    return res.status(201).json(newMemo)
+}
+
 module.exports = {
     getById,
-    getSentById
+    getSentById,
+    createMemorando
 }

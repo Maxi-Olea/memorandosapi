@@ -40,7 +40,7 @@ router.get('/:id',(req,res) => {
   //   res.send("put by id")
   // });
   
-  router.post('/',(req,res) => {
+  router.post('/',(req, res) => {
     routeController.handleRequest(req, res, UserController.createUser)
   });
 
