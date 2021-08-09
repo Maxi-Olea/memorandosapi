@@ -16,6 +16,11 @@ router.get('/sent/:id',(req,res) => {
 router.post('/', (req, res) => {
   routeController.handleRequest(req, res, memorandosController.createMemorando)
 });
+
+router.delete('/:id', (req, res) => {
+  console.log('delete memorando by Id', req.params.id)
+  routeController.handleRequest(req, res, memorandosController.deleteMemorando)
+})
   
 
   module.exports = router

@@ -35,8 +35,19 @@ const createMemorando = async (req, res) => {
     return res.status(201).json(newMemo)
 }
 
+const deleteMemorando = async (req, res) => {
+    console.log('Memorandos Controller,- delete by id: ')
+    const {id} = req.params
+    console.log("Delete Memorando by id: " + id)
+    const deleted = await memorandosService.deleteMemorando(id)
+    console.log("response controller " + JSON.stringify(deleted))
+    return res.status(200).json(deleted)
+}
+
+
 module.exports = {
     getById,
     getSentById,
-    createMemorando
+    createMemorando,
+    deleteMemorando
 }

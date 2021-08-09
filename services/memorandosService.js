@@ -40,9 +40,21 @@ const linkToDestinatario = async (destinatario) => {
     console.log("response del insert del destinarario: ", dest)
 }
 
+const deleteMemorando = async (idMemo) => {
+    console.log('Delete memorando en el service por id', idMemo)
+    try {
+        return await DestinatarioModel.destroy({where:{id:idMemo}})
+      } catch (e) {
+        const errorMessage = `Delete Memorando - Detail: ` + e.message
+        console.error("DeleteMemo - ["+ idMemo+"]");
+        throw new error.AppError(exceptions.exceptionType.database.entity.canNotBeDeleted, errorMessage)
+      }
+}
+
 module.exports = {
     getById,
     getSentById,
     createMemorando,
-    linkToDestinatario
+    linkToDestinatario,
+    deleteMemorando
 }

@@ -33,12 +33,6 @@ router.get('/:id',(req,res) => {
   }, 5000)
   });
 
-  //  router.put('/:id',(req,res) => {
-  //   console.log(req.params);
-  //   const params = req.params
-  //   const userId = params.id
-  //   res.send("put by id")
-  // });
   
   router.post('/',(req, res) => {
     routeController.handleRequest(req, res, UserController.createUser)
