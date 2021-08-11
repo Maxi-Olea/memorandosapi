@@ -5,7 +5,7 @@ const routeController = require("../common/route.controller")
 const auth = require("../middlewares/auth")
 
 
-router.get("/", (req,res)=>{
+router.get("/",[auth.required], (req,res)=>{
     console.log(req.query);
     routeController.handleRequest(req, res, UserController.getAll)
 })
