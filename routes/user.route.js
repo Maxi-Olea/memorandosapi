@@ -6,17 +6,14 @@ const auth = require("../middlewares/auth")
 
 
 router.get("/",[auth.required], (req,res)=>{
-    console.log(req.query);
     routeController.handleRequest(req, res, UserController.getAll)
 })
 
 router.get('/:id',(req,res) => {
-    console.log("get bt id route" +req.params);
     routeController.handleRequest(req, res, UserController.getById)
   });
   
   router.delete('/:id',(req,res) => {
-    console.log(req.params);
     const params = req.params
     const userId = params.id
     routeController.handleRequest(req, res, UserController.deleteUser)
@@ -24,13 +21,7 @@ router.get('/:id',(req,res) => {
   });
   
   router.patch('/:username',(req,res) => {
-    setTimeout(() => {
-        
-    
-    console.log("username: ", req.params);
     routeController.handleRequest(req, res, UserController.updatePassword)
-    
-  }, 5000)
   });
 
   
