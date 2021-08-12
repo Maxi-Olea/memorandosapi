@@ -18,15 +18,12 @@ const createUser = async ({name, lastName, email, username, password, idCiudad})
       username: username.toLowerCase(),
       password: encryptPassword(password),
       ciudad: idCiudad,
-      //createdAt: new Date(),
-      //updatedAt: new Date()
     }
     console.log("createUser - data["+ JSON.stringify(data)+"]");
     try {
       return await UserModel.create(data)
     } catch (e) {
       const errorMessage = `Create User - Detail: ` + e.message
-      // logger.error(errorMessage)
       console.error("createUser - username["+ username+"]");
       throw new error.AppError(exceptions.exceptionType.database.entity.canNotBeCreated, errorMessage)
     }
