@@ -90,7 +90,8 @@ const updatePassword = async (username, data) => {
       throw new error.AppError(exceptions.exceptionType.database.entity.canNotBeUpdated, errorMessage)
     }
   } else {
-    console.log("email doesn't match")
+    throw new error.AppError(exceptions.exceptionType.users.email, 'The email inserted does not match!')
+    //console.log("email doesn't match")
   }
   const newPassword = data.password
   const password = encryptPassword(newPassword)

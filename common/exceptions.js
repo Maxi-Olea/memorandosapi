@@ -40,6 +40,11 @@ const exceptionType = {
             message: "User not found",
             httpStatus: 404
         },
+        email: {
+            code: 103,
+            message: "User email does not match",
+            httpStatus: 401
+        }
     },
     database: {
         entity: {
